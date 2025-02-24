@@ -1,8 +1,15 @@
 # SQL-to-Excel-Report
 
-The **Database Query to Excel Generator** is a user-friendly GUI application designed to query SQL Server databases and generate Excel reports based on predefined templates. This tool allows users to select specific tables, define start and end date-time ranges, and export the query results into a neatly formatted Excel file, making data analysis easier and more accessible.
+The **Database Query to Excel Generator** is a user-friendly GUI application designed to query SQL Server databases and generate Excel reports. This tool allows users to select specific tables, define start and end date-time ranges, and export the query results into a neatly formatted Excel file, making data analysis easier and more accessible. The tool is designed to be used by non-technical users who need to generate Excel reports from SQL Server databases created by `SCADA systems`.
 
 ---
+
+## **Creating .exe file**
+
+```bash
+pyinstaller SQL_to_Report.spec
+```
+The .exe file will be created in the `dist` folder.
 
 ## **Features**
 
@@ -25,4 +32,4 @@ The **Database Query to Excel Generator** is a user-friendly GUI application des
 
 ## **Credits**
 
-Developed with love by Subhajit
+Developed by Subhajit Duttagupta.
