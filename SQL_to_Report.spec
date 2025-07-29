@@ -5,8 +5,15 @@ a = Analysis(
     ['SQL_to_REPORT.py'],
     pathex=[],
     binaries=[],
-    datas=[('logo.png', '.'), ('logo1.png', '.')],
-    hiddenimports=['pyodbc'],
+    datas=[
+        ('Report_Template.xlsx', '.'),
+        ('logo.png', '.')
+    ],
+    hiddenimports=[
+        'pyodbc',
+        'sqlalchemy.dialects.mssql',
+        'sqlalchemy.dialects.mssql.pyodbc'
+    ],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
