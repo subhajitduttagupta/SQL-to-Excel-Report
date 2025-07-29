@@ -30,6 +30,8 @@ DATABASES = {
         "username": "admin",
         "password": "admin"
     }
+
+    
     # "ALL_DATA": {
     #     "name": "KINLEY_RO_DB",
     #     "server": r"DESKTOP-87HT9VP\WINCC",
