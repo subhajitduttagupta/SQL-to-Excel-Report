@@ -53,18 +53,18 @@ This project facilitates the generation of Excel reports from SQL Server databas
 ## Screenshots
 
 ### Main Interface
-![Front Picture 1](screenshots/front_picture_1.png)
-![Front Picture 2](screenshots/front_picture_2.png)
+![Front Picture 1](screenshots/Front%20Picture%201.jpg)
+![Front Picture 2](screenshots/Front%20Picture%202.jpg)
 
 ### WinCC Configuration
-![WinCC .bmo File](screenshots/wincc_bmo_file.png)
+![WinCC .bmo File](screenshots/WinCC%20.bmo%20File.png)
 
 ### SQL Server Settings
-![SQL Server User Configuration](screenshots/sql_server_user_config.png)
-![SQL Server TCP/IP Settings](screenshots/sql_server_tcp_ip.png)
+![SQL Server User Configuration](screenshots/SQL%20Server%20User%20Configuration.png)
+![SQL Server TCP/IP Settings](screenshots/SQL%20Server%20TCP%20IP%20Settings.png)
 
 ### Excel Report Output
-![Excel Report](screenshots/excel_report.png)
+![Excel Report](screenshots/Excel%20Report.png)
 
 ---
 
