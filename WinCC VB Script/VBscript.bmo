@@ -1,0 +1,128 @@
+Sub procedure1
+
+Dim conn, rst, SQL_Table1, SQL_Table2
+Dim MyDate, MyTime, Datum
+Dim errorOccurred, UV_HEALTHY_Value
+
+errorOccurred = False
+
+On Error Resume Next
+
+Set conn = CreateObject("ADODB.Connection")
+Set rst = CreateObject("ADODB.Recordset")
+
+'Open data source - Datenquelle öffnen
+conn.Open "Provider=MSDASQL;DSN=ENE_ERGO_RO_SERVER;UID=;PWD=;"
+
+'Error routine - Fehlerroutine
+If Err.Number <> 0 Then
+    ShowSystemAlarm "Connection Error #" & Err.Number & " " & Err.Description
+    'MsgBox "Connection Error #" & Err.Number & " " & Err.Description
+    Err.Clear
+    Set conn = Nothing 
+    Exit Sub
+End If
+
+' Test connection
+If conn.State <> 1 Then
+    ShowSystemAlarm "Database connection is not open"
+    'MsgBox "Database connection is not open"
+    Exit Sub
+End If
+
+' Format datetime in DD/MM/YYYY HH:MM:SS format (format 103)
+MyDate = Date
+MyTime = Time
+Datum = Right("0" & Day(MyDate), 2) & "/" & Right("0" & Month(MyDate), 2) & "/" & Year(MyDate) & " " & _
+        Right("0" & Hour(MyTime), 2) & ":" & Right("0" & Minute(MyTime), 2) & ":" & Right("0" & Second(MyTime), 2)
+
+' Convert binary value to 1 or 0
+If HMIRuntime.Tags("UV_HEALTHY_FB").Read = True Then
+    UV_HEALTHY_Value = 1
+Else
+    UV_HEALTHY_Value = 0
+End If
+
+'MsgBox "Connection successful. Timestamp: " & Datum
+
+' Insert into REJECT_RO Table
+SQL_Table1 = "INSERT INTO [ERGO].[dbo].[REJECT_RO] (DateAndTime,Feed_Flow,Per_Flow,Reject_Flow,Feed_PH,Per_PH,Per_COND,Turbidity,CO2_PID,DOSING_PUMP_PID,HPP_PID) VALUES ('" & _
+    Datum & "'," & _
+    HMIRuntime.Tags("REJECT_RO_FEED_FM_SCL_OUTPUT").Read & "," & _
+    HMIRuntime.Tags("REJECT_RO_PERMEATE_FM_SCL_OUTPUT").Read & "," & _
+    HMIRuntime.Tags("REJECT_RO_REJECT_FM_SCL_OUTPUT").Read & "," & _
+    HMIRuntime.Tags("REJECT_RO_FEED_PH_SCL_OUTPUT").Read & "," & _
+    HMIRuntime.Tags("REJECT_RO_PERMEATE_PH_SCL_OUTPUT").Read & "," & _
+    HMIRuntime.Tags("REJECT_RO_PERMEATE_CONDUCTIVITY_SCL_OUTPUT").Read & "," & _
+    HMIRuntime.Tags("REJECT_RO_TURBIDITY_SCL_OUTPUT").Read & "," & _
+    HMIRuntime.Tags("CO2_PID_OUTPUT").Read & "," & _
+    HMIRuntime.Tags("DOSING_PUMP_PID_OUTPUT").Read & "," & _
+    HMIRuntime.Tags("HPP_PID_OUTPUT").Read & ")"
+
+' Execute first insert (REJECT_RO)
+Set rst = conn.Execute(SQL_Table1)
+
+If Err.Number <> 0 Then
+    ShowSystemAlarm "Error inserting into REJECT_RO: #" & Err.Number & " " & Err.Description
+    'MsgBox "Error inserting into REJECT_RO: #" & Err.Number & " " & Err.Description
+    errorOccurred = True
+    Err.Clear
+'Else
+    'MsgBox "REJECT_RO insert successful"
+End If
+
+' Insert into RO_TABLE
+SQL_Table2 = "INSERT INTO [ERGO].[dbo].[RO_TABLE] (DateAndTime,Permeate_PH,Permeate_COND,Feed_PH,Feed_COND,Feed_FLOW,Permeate_FLOW,Reject_FLOW,STAGE_2_FEED_FLOW,ACF_OUTLET_ORP,FEED_ORP,HEADER_PRESSURE,HPP_1_PID,HPP_2_PID,MICRON_1_INLET_PR,MICRON_1_OUTLET_PR,MICRON_2_INLET_PR,MICRON_2_OUTLET_PR,PERMEATE_TNS_1,PERMEATE_TNS_2,PERMEATE_TNS_3,PH_CORRECTION_DOSING,POST_MICRON_FILTER_1_INLET,POST_MICRON_FILTER_2_INLET,POST_MICRON_OUTLET_1,POST_MICRON_OUTLET_2,PST_1_LVL,PST_2_LVL,UV_HEALTHY) VALUES ('" & _
+    Datum & "'," & _
+    HMIRuntime.Tags("PERMEATE_PH_RO").Read & "," & _
+    HMIRuntime.Tags("PERMEATE_COND_RO").Read & "," & _
+    HMIRuntime.Tags("FEED_PH_RO").Read & "," & _
+    HMIRuntime.Tags("FEED_COND_RO").Read & "," & _
+    HMIRuntime.Tags("FEED_FLOW_RO").Read & "," & _
+    HMIRuntime.Tags("PERMEATE_FLOW_RO").Read & "," & _
+    HMIRuntime.Tags("REJECT_FLOW_RO").Read & "," & _
+    HMIRuntime.Tags("2ND_STAGE_FEED_FLOW_RO").Read & "," & _
+    HMIRuntime.Tags("ACF_OUTLET_ORP_SCALED_OUT").Read & "," & _
+    HMIRuntime.Tags("FEED_ORP_RO").Read & "," & _
+    HMIRuntime.Tags("HEADER_PRESSURE_SCALED_OUT").Read & "," & _
+    HMIRuntime.Tags("HPP_1_PID_OUTPUT").Read & "," & _
+    HMIRuntime.Tags("HPP_2_PID_OUTPUT").Read & "," & _
+    HMIRuntime.Tags("MICRON_1_INLET_PR_RO").Read & "," & _
+    HMIRuntime.Tags("MICRON_1_OUTLET_PR_RO").Read & "," & _
+    HMIRuntime.Tags("MICRON_2_INLET_PR_RO").Read & "," & _
+    HMIRuntime.Tags("MICRON_2_OUTLET_PR_RO").Read & "," & _
+    HMIRuntime.Tags("PERMEATE_TNS_1_OUTPUT").Read & "," & _
+    HMIRuntime.Tags("PERMEATE_TNS_2_OUTPUT").Read & "," & _
+    HMIRuntime.Tags("PERMEATE_TNS_3_OUTPUT").Read & "," & _
+    HMIRuntime.Tags("PH_CORRECTION_DOSING_PUMP_OUTPUT").Read & "," & _
+    HMIRuntime.Tags("POST_MICRON_FILTER_1_INLET_SCALED_OUT").Read & "," & _
+    HMIRuntime.Tags("POST_MICRON_FILTER_2_INLET_SCALED_OUT").Read & "," & _
+    HMIRuntime.Tags("POST_MICRON_OUTLET_1_SCALED_OUT").Read & "," & _
+    HMIRuntime.Tags("POST_MICRON_OUTLET_2_SCALED_OUT").Read & "," & _
+    HMIRuntime.Tags("PST_1_LVL_SCALED_OUT").Read & "," & _
+    HMIRuntime.Tags("PST_2_LVL_SCALED_OUT").Read & "," & _
+    UV_HEALTHY_Value & ")"
+
+' Execute second insert (RO_TABLE)
+Set rst = conn.Execute(SQL_Table2)
+
+If Err.Number <> 0 Then
+    ShowSystemAlarm "Error inserting into RO_TABLE: #" & Err.Number & " " & Err.Description
+    'MsgBox "Error inserting into RO_TABLE: #" & Err.Number & " " & Err.Description
+    errorOccurred = True
+    Err.Clear
+'Else
+    'MsgBox "RO_TABLE insert successful"
+End If
+
+'If Not errorOccurred Then
+    'MsgBox "Both inserts completed successfully"
+'End If
+
+'Close data source - Datenquelle schließen
+conn.close
+
+Set rst = Nothing
+Set conn = Nothing
+
+End Sub

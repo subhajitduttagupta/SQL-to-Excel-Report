@@ -1,0 +1,44 @@
+PS C:\Users\HP> sqlcmd -S DESKTOP-E636DTV,1433 -U admin -P Moinadanga@1
+1>
+Sqlcmd: Warning: The last operation was terminated because the user pressed CTRL+C.
+PS C:\Users\HP> sqlcmd -S DESKTOP-E636DTV\WINCC -U admin -P Moinadanga@1
+1> c
+Sqlcmd: Warning: The last operation was terminated because the user pressed CTRL+C.
+PS C:\Users\HP> Get-OdbcDriver | Where-Object Name -like "*SQL Server*"
+
+
+Name      : SQL Server
+Platform  : 32-bit
+Attribute : {APILevel, FileUsage, Driver, ConnectFunctions...}
+
+Name      : SQL Server Native Client 11.0
+Platform  : 32-bit
+Attribute : {Driver, APILevel, FileUsage, Setup...}
+
+Name      : ODBC Driver 13 for SQL Server
+Platform  : 32-bit
+Attribute : {Driver, APILevel, FileUsage, Setup...}
+
+Name      : ODBC Driver 17 for SQL Server
+Platform  : 32-bit
+Attribute : {Driver, APILevel, FileUsage, Setup...}
+
+Name      : SQL Server
+Platform  : 64-bit
+Attribute : {APILevel, FileUsage, Driver, ConnectFunctions...}
+
+Name      : SQL Server Native Client 11.0
+Platform  : 64-bit
+Attribute : {Driver, APILevel, FileUsage, Setup...}
+
+Name      : ODBC Driver 13 for SQL Server
+Platform  : 64-bit
+Attribute : {Driver, APILevel, FileUsage, Setup...}
+
+Name      : SQL Server Native Client RDA 11.0
+Platform  : 64-bit
+Attribute : {Driver, APILevel, FileUsage, Setup...}
+
+Name      : ODBC Driver 17 for SQL Server
+Platform  : 64-bit
+Attribute : {Driver, APILevel, FileUsage, Setup...}

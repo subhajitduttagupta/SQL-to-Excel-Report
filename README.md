@@ -1,35 +1,77 @@
-# SQL-to-Excel-Report
+# SQL to Excel Report Generation
 
-The **Database Query to Excel Generator** is a user-friendly GUI application designed to query SQL Server databases and generate Excel reports. This tool allows users to select specific tables, define start and end date-time ranges, and export the query results into a neatly formatted Excel file, making data analysis easier and more accessible. The tool is designed to be used by non-technical users who need to generate Excel reports from SQL Server databases created by `SCADA systems`.
-
----
-
-## **Creating .exe file**
-
-```bash
-pyinstaller SQL_to_Report.spec
-```
-The .exe file will be created in the `dist` folder.
-
-## **Features**
-
-- **Simple GUI:** Easily interact with the database without needing to write SQL queries.
-- **Date and Time Selection:** User-friendly date and time inputs with a calendar interface.
-- **Excel Template Integration:** Automatically formats query results into predefined Excel templates.
-- **Customizable Output:** Generates reports based on selected tables and date ranges.
+## Overview
+This project facilitates the generation of Excel reports from SQL Server databases using Python. The application is designed to work with WinCC SCADA systems and supports multiple table connections and column data setups.
 
 ---
 
-## **Dependencies**
+## Steps to Configure and Use
 
-- `tkinter`: For creating the graphical user interface.
-- `tkcalendar`: To provide a date-picker widget in the GUI.
-- `pandas`: To handle and manipulate the data fetched from SQL Server.
-- `sqlalchemy`: To facilitate database connectivity and querying.
-- `openpyxl`: To work with Excel files and templates.
+### 1. Edit the `.bmo` File in WinCC
+- Open the WinCC project.
+- Locate the `.bmo` file (e.g., `DATA TO SQL(RO).bmo`).
+- Make necessary edits to ensure proper data flow and compatibility with SQL Server.
+
+### 2. Create Tables and Verify Data
+- Use SQL commands to create tables in the database.
+- Ensure the data is flowing correctly by testing with SQL queries.
+- **Important:** When creating tables, use data types supported by WinCC. For example:
+  - WinCC does not support `datetime`. Instead, use `varchar` for date and time columns.
+
+### 3. Configure SQL Server
+#### Create a New User
+- Create a new user in SQL Server with SQL authentication.
+- Assign a strong password and ensure the user has necessary permissions.
+
+#### Database Server Settings
+- Enable SQL authentication mode in SQL Server.
+- Configure TCP/IP settings in SQL Server Configuration Manager:
+  - Enable TCP/IP protocol.
+  - Set the port to `1433`.
+
+#### Permissions
+- Grant the new user permissions to access the database and perform necessary operations.
+
+#### Testing
+- Test the new user configuration in SQL Server Management Studio.
+- Verify the connection using PowerShell commands:
+  ```powershell
+  sqlcmd -S <ServerName> -U <Username> -P <Password>
+  ```
+
+### 4. Python Application (`SQL_to_REPORT.py`)
+#### Database Connection Setup
+- Configure the connection string to connect to the SQL Server database.
+- Ensure proper handling of multiple table connections.
+
+#### Column Data Setup
+- Define column mappings and ensure compatibility with the table structures.
+- Use `TRY_CONVERT` for robust handling of data types.
 
 ---
 
-## **Credits**
+## Screenshots
 
-Developed by Subhajit Duttagupta.
+### Main Interface
+![Front Picture 1](screenshots/front_picture_1.png)
+![Front Picture 2](screenshots/front_picture_2.png)
+
+### WinCC Configuration
+![WinCC .bmo File](screenshots/wincc_bmo_file.png)
+
+### SQL Server Settings
+![SQL Server User Configuration](screenshots/sql_server_user_config.png)
+![SQL Server TCP/IP Settings](screenshots/sql_server_tcp_ip.png)
+
+### Excel Report Output
+![Excel Report](screenshots/excel_report.png)
+
+---
+
+## Notes
+- Ensure all configurations are tested thoroughly before deployment.
+- Follow best practices for database security and data handling.
+
+---
+
+Developed by Subhajit Dutta Gupta
