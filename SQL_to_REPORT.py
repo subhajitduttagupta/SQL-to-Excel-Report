@@ -28,7 +28,7 @@ DATABASES = {
         "server": r"DESKTOP-E636DTV\WINCC",  # Using the instance name since it works in sqlcmd
         "driver": "ODBC Driver 17 for SQL Server",
         "username": "admin",
-        "password": "Moinadanga@1"
+        "password": "admin"
     }
     # "ALL_DATA": {
     #     "name": "KINLEY_RO_DB",
