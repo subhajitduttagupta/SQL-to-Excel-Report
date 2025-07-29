@@ -1,5 +1,8 @@
 # SQL to Excel Report Generation
 
+### Main Interface
+![Front Picture 1](screenshots/Front%20Picture%201.jpg)
+
 ## Overview
 This project facilitates the generation of Excel reports from SQL Server databases using Python. The application is designed to work with WinCC SCADA systems and supports multiple table connections and column data setups.
 
@@ -52,16 +55,17 @@ This project facilitates the generation of Excel reports from SQL Server databas
 
 ## Screenshots
 
-### Main Interface
-![Front Picture 1](screenshots/Front%20Picture%201.jpg)
+### Interface
 ![Front Picture 2](screenshots/Front%20Picture%202.jpg)
 
 ### WinCC Configuration
-![WinCC .bmo File](screenshots/WinCC%20.bmo%20File.png)
+![WinCC](screenshots/WinCC.png)
 
 ### SQL Server Settings
-![SQL Server User Configuration](screenshots/SQL%20Server%20User%20Configuration.png)
-![SQL Server TCP/IP Settings](screenshots/SQL%20Server%20TCP%20IP%20Settings.png)
+![New login ID for SQL](screenshots/New%20login%20ID%20for%20SQL.jpg)
+![SQL Login ID Properties](screenshots/SQL%20Login%20ID%20Properties.jpg)
+![SQL server TCPiP](screenshots/SQL%20server%20TCPiP.jpg)
+![SQL server login](screenshots/SQL%20server%20login.jpg)
 
 ### Excel Report Output
 ![Excel Report](screenshots/Excel%20Report.png)
