@@ -55,8 +55,8 @@ This project facilitates the generation of Excel reports from SQL Server databas
 
 ## Screenshots
 
-### Interface
-![Front Picture 2](screenshots/Front%20Picture%202.jpg)
+### Excel Report Output
+![Excel Report](screenshots/Front%20Picture%202.jpg)
 
 ### WinCC Configuration
 ![WinCC](screenshots/WinCC.png)
@@ -67,8 +67,7 @@ This project facilitates the generation of Excel reports from SQL Server databas
 ![SQL server TCPiP](screenshots/SQL%20server%20TCPiP.jpg)
 ![SQL server login](screenshots/SQL%20server%20login.jpg)
 
-### Excel Report Output
-![Excel Report](screenshots/Excel%20Report.png)
+
 
 ---
 
@@ -78,4 +77,4 @@ This project facilitates the generation of Excel reports from SQL Server databas
 
 ---
 
-Developed by Subhajit Dutta Gupta
+Developed by Subhajit Duttagupta
